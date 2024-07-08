@@ -449,20 +449,20 @@ class BaseBuild {
         // copy includes
         let includePath = thinDir(platform: PlatformType.ios, arch: ArchType.arm64) + ["include"]
         let destIncludePath = releaseDirPath + [library.rawValue, "include"]
-        Utility.shell("cp -rf \(includePath.path) \(destIncludePath.path)")
+        try FileManager.default.copyItem(at: includePath, to: destIncludePath)
 
 
         // copy pkg-config files
         let iosLibPath = thinDir(platform: PlatformType.ios, arch: ArchType.arm64) + ["lib"]
         let pkgconfigPath = iosLibPath + ["pkgconfig"]
         let destPkgConfigPath = releaseDirPath + [library.rawValue, "pkgconfig-example"]
-        Utility.shell("cp -rf \(pkgconfigPath.path) \(destPkgConfigPath.path)")
+        try FileManager.default.copyItem(at: pkgconfigPath, to: destPkgConfigPath)
 
         // zip build artifacts
-        let sourceLib = library.rawValue
+        let sourceLib = releaseDirPath + [library.rawValue]
         let destZipLibPath = releaseDirPath + [library.rawValue + "-all.zip"]
         try? FileManager.default.removeItem(at: destZipLibPath)
-        Utility.shell("zip -qr \(destZipLibPath.path) \(sourceLib)", currentDirectoryURL: releaseDirPath)
+        try Utility.launch(path: "/usr/bin/zip", arguments: ["-qr", destZipLibPath.path, "./"], currentDirectoryURL: sourceLib)
 
         // zip xcframeworks
         var frameworks: [String] = []
@@ -480,7 +480,7 @@ class BaseBuild {
             let checksumFile = releaseDirPath + [framework + ".xcframework.checksum.txt"]
             try? FileManager.default.removeItem(at: zipFile)
             try? FileManager.default.removeItem(at: checksumFile)
-            Utility.shell("zip -qr \(zipFile.path) \(XCFrameworkFile)", currentDirectoryURL: URL.currentDirectory + ["../Sources"])
+            try Utility.launch(path: "/usr/bin/zip", arguments: ["-qr", zipFile.path, XCFrameworkFile], currentDirectoryURL: URL.currentDirectory + ["../Sources"])
             Utility.shell("swift package compute-checksum \(zipFile.path) > \(checksumFile.path)")
         }
     }
