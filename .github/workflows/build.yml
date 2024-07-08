@@ -27,6 +27,9 @@ jobs:
       run: |
         swift run --package-path scripts
         
+    - name: List files
+      run: ls -al ./dist
+        
     - name: Update Package.swift
       run: |
         rm -f ./Package.swift
@@ -57,7 +60,6 @@ jobs:
         default_author: github_actions
         add: |
           - Package.swift
-          - Sources
         message: "chore: release version ${{ github.event.inputs.version }}"
         push: "origin HEAD:${{ github.ref_name }}"
         
