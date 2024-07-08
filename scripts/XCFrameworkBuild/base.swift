@@ -457,6 +457,13 @@ class BaseBuild {
         let pkgconfigPath = iosLibPath + ["pkgconfig"]
         let destPkgConfigPath = releaseDirPath + [library.rawValue, "pkgconfig-example"]
         try FileManager.default.copyItem(at: pkgconfigPath, to: destPkgConfigPath)
+        let pkgconfigFiles = Utility.listAllFiles(in: destPkgConfigPath)
+        for file in pkgconfigFiles {
+            if let data = FileManager.default.contents(atPath: file.path), var str = String(data: data, encoding: .utf8) {
+                str = str.replacingOccurrences(of: URL.currentDirectory.path, with: "/path/to/dist")
+                try! str.write(toFile: file.path, atomically: true, encoding: .utf8)
+            }
+        }
 
         // zip build artifacts
         let sourceLib = releaseDirPath + [library.rawValue]
@@ -837,6 +844,29 @@ enum Utility {
         #else
         return ""
         #endif
+    }
+
+
+    @discardableResult
+    static func listAllFiles(in directory: URL) -> [URL] {
+        var allFiles: [URL] = []
+        let enumerator = FileManager.default.enumerator(atPath: directory.path)
+
+        while let file = enumerator?.nextObject() as? String {
+            let filePath = directory + [file]
+            var isDirectory: ObjCBool = false
+
+            if FileManager.default.fileExists(atPath: filePath.path, isDirectory: &isDirectory) {
+                if isDirectory.boolValue {
+                    // 如果是目录，则递归遍历该目录
+                    listAllFiles(in: filePath)
+                } else {
+                    allFiles.append(filePath)
+                }
+            }
+        }
+
+        return allFiles
     }
 }
 
