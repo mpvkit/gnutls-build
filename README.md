@@ -1,13 +1,13 @@
-# libsmbclient-build
+# gnutls-build
 
-build scripts for [libsmbclient](https://github.com/samba-team/samba)
+build scripts for [gnutls](https://github.com/gnutls/gnutls)
 
 ## Installation
 
 ### Swift Package Manager
 
 ```
-https://github.com/mpvkit/libsmbclient-build.git
+https://github.com/mpvkit/gnutls-build.git
 ```
 
 ## How to build
