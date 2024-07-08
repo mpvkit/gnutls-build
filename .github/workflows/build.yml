@@ -34,22 +34,22 @@ jobs:
       run: |
         rm -f ./Package.swift
         cp -f ./docs/Package.template.swift ./Package.swift
-        gmp_url="https://github.com/mpvkit/libsmbclient-build/releases/download/${{ github.event.inputs.version }}/gmp.xcframework.zip"
+        gmp_url="https://github.com/mpvkit/gnutls-build/releases/download/${{ github.event.inputs.version }}/gmp.xcframework.zip"
         gmp_checksum=$(cat ./dist/release/gmp.xcframework.checksum.txt)
         sed -i '' "s#\\\(gmp_url)#${gmp_url}#g" ./Package.swift
         sed -i '' "s#\\\(gmp_checksum)#${gmp_checksum}#g" ./Package.swift
 
-        nettle_url="https://github.com/mpvkit/libsmbclient-build/releases/download/${{ github.event.inputs.version }}/nettle.xcframework.zip"
+        nettle_url="https://github.com/mpvkit/gnutls-build/releases/download/${{ github.event.inputs.version }}/nettle.xcframework.zip"
         nettle_checksum=$(cat ./dist/release/nettle.xcframework.checksum.txt)
         sed -i '' "s#\\\(nettle_url)#${nettle_url}#g" ./Package.swift
         sed -i '' "s#\\\(nettle_checksum)#${nettle_checksum}#g" ./Package.swift
 
-        hogweed_url="https://github.com/mpvkit/libsmbclient-build/releases/download/${{ github.event.inputs.version }}/hogweed.xcframework.zip"
+        hogweed_url="https://github.com/mpvkit/gnutls-build/releases/download/${{ github.event.inputs.version }}/hogweed.xcframework.zip"
         hogweed_checksum=$(cat ./dist/release/hogweed.xcframework.checksum.txt)
         sed -i '' "s#\\\(hogweed_url)#${hogweed_url}#g" ./Package.swift
         sed -i '' "s#\\\(hogweed_checksum)#${hogweed_checksum}#g" ./Package.swift
 
-        gnutls_url="https://github.com/mpvkit/libsmbclient-build/releases/download/${{ github.event.inputs.version }}/gnutls.xcframework.zip"
+        gnutls_url="https://github.com/mpvkit/gnutls-build/releases/download/${{ github.event.inputs.version }}/gnutls.xcframework.zip"
         gnutls_checksum=$(cat ./dist/release/gnutls.xcframework.checksum.txt)
         sed -i '' "s#\\\(gnutls_url)#${gnutls_url}#g" ./Package.swift
         sed -i '' "s#\\\(gnutls_checksum)#${gnutls_checksum}#g" ./Package.swift
