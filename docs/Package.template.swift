@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "gnutls",
+    platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13)],
     products: [
         .library(name: "gmp", targets: ["gmp"]),
         .library(name: "nettle", targets: ["nettle"]),
