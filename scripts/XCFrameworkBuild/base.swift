@@ -972,6 +972,7 @@ enum Utility {
 
     @discardableResult
     static func launch(executableURL: URL, arguments: [String], isOutput: Bool = false, currentDirectoryURL: URL? = nil, environment: [String: String] = [:]) throws -> String {
+        #if os(macOS)
         let task = Process()
         var environment = environment
         // for homebrew 1.12
@@ -1067,6 +1068,9 @@ enum Utility {
             }
             throw NSError(domain: "\(executableURL.lastPathComponent) execute failed", code: Int(task.terminationStatus))
         }
+        #else
+        return ""
+        #endif
     }
 
     @discardableResult
