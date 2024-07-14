@@ -6,31 +6,40 @@ let package = Package(
     name: "gnutls",
     platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13)],
     products: [
-        .library(name: "gmp", targets: ["gmp"]),
-        .library(name: "nettle", targets: ["nettle"]),
-        .library(name: "hogweed", targets: ["hogweed"]),
-        .library(name: "gnutls", targets: ["gnutls"]),
+        .library(name: "gnutls", targets: ["_gnutls"]),
     ],
     targets: [
+        // Need a dummy target to embedded correctly.
+        // https://github.com/apple/swift-package-manager/issues/6069
+        .target(
+            name: "_gnutls",
+            dependencies: ["gmp", "nettle", "hogweed", "gnutls"],
+            path: "Sources/_Dummy"
+        ),
+        //AUTO_GENERATE_TARGETS_BEGIN//
+
         .binaryTarget(
             name: "gmp",
             url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.3/gmp.xcframework.zip",
-            checksum: "56335db8813453b8fc4fa856a8946619c1d250fb75956aec5a7747db6b391b06"
+            checksum: "4e6c464136044a989990866060849885e75fe8d51e40c3eaa0df905031e72de3"
         ),
+
         .binaryTarget(
             name: "nettle",
             url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.3/nettle.xcframework.zip",
-            checksum: "d67acef64dfaca72478d0b828d6b07263d684b1c5a37eb91a67f319619754c4c"
+            checksum: "36236b6ade0e0dacc394f30ec5bb9b6094b9d030a7c7c629b1808a5d6aca5f7b"
         ),
         .binaryTarget(
             name: "hogweed",
             url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.3/hogweed.xcframework.zip",
-            checksum: "0c5c57a508fde663413cb9798ad0ca272a137d5b1d2c5ec205c393b5f60140aa"
+            checksum: "f37d1d826a7d31ce8d5e05e7c8a05d73ed7d96ef7462d6232eeaebab785ea058"
         ),
+
         .binaryTarget(
             name: "gnutls",
             url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.3/gnutls.xcframework.zip",
-            checksum: "22793c592f174383f3afec21991a85ad6d7082d3784dee6e6d0fe3f78d2be45b"
-        )
+            checksum: "afbe9925bd0b6843e3cdd9122803ef7c107ae16761707c5aa506ec16c46928ff"
+        ),
+        //AUTO_GENERATE_TARGETS_END//
     ]
 )
