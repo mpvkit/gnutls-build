@@ -6,31 +6,17 @@ let package = Package(
     name: "gnutls",
     platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13)],
     products: [
-        .library(name: "gmp", targets: ["gmp"]),
-        .library(name: "nettle", targets: ["nettle"]),
-        .library(name: "hogweed", targets: ["hogweed"]),
-        .library(name: "gnutls", targets: ["gnutls"]),
+        .library(name: "gnutls", targets: ["_gnutls"]),
     ],
     targets: [
-        .binaryTarget(
-            name: "gmp",
-            url: "\(gmp_url)",
-            checksum: "\(gmp_checksum)"
+        // Need a dummy target to embedded correctly.
+        // https://github.com/apple/swift-package-manager/issues/6069
+        .target(
+            name: "_gnutls",
+            dependencies: ["gmp", "nettle", "hogweed", "gnutls"],
+            path: "Sources/_Dummy"
         ),
-        .binaryTarget(
-            name: "nettle",
-            url: "\(nettle_url)",
-            checksum: "\(nettle_checksum)"
-        ),
-        .binaryTarget(
-            name: "hogweed",
-            url: "\(hogweed_url)",
-            checksum: "\(hogweed_checksum)"
-        ),
-        .binaryTarget(
-            name: "gnutls",
-            url: "\(gnutls_url)",
-            checksum: "\(gnutls_checksum)"
-        )
+        //AUTO_GENERATE_TARGETS_BEGIN//
+        //AUTO_GENERATE_TARGETS_END//
     ]
 )
