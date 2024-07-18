@@ -97,10 +97,15 @@ private class BuildGmp: BaseBuild {
 }
 private class BuildNettle: BaseBuild {
     init() {
+        super.init(library: .nettle)
+    }
+
+    override func beforeBuild() throws {
         if Utility.shell("which autoconf") == nil {
             Utility.shell("brew install autoconf")
         }
-        super.init(library: .nettle)
+
+        super.beforeBuild()
     }
 
     override func flagsDependencelibrarys() -> [Library] {
@@ -130,6 +135,10 @@ private class BuildNettle: BaseBuild {
 
 private class BuildGnutls: BaseBuild {
     init() {
+        super.init(library: .gnutls)
+    }
+
+    override func beforeBuild() throws {
         if Utility.shell("which automake") == nil {
             Utility.shell("brew install automake")
         }
@@ -148,7 +157,8 @@ private class BuildGnutls: BaseBuild {
         if Utility.shell("which asn1Parser") == nil {
             Utility.shell("brew install libtasn1")
         }
-        super.init(library: .gnutls)
+
+        super.beforeBuild()
     }
 
     override func flagsDependencelibrarys() -> [Library] {
@@ -179,6 +189,8 @@ private class BuildGnutls: BaseBuild {
 
     override func arguments(platform: PlatformType, arch: ArchType) -> [String] {
         [
+            "--enable-fips140-mode",
+
             "--with-included-libtasn1",
             "--with-included-unistring",
             "--without-brotli",
@@ -194,7 +206,8 @@ private class BuildGnutls: BaseBuild {
             "--disable-manpages",
             "--disable-nls",
             "--disable-rpath",
-//                "--disable-tests",
+            "--disable-doc",
+            "--disable-tests",
             "--disable-tools",
             "--disable-full-test-suite",
             "--with-pic",
