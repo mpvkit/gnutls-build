@@ -9,7 +9,7 @@ do {
     try BuildGnutls().buildALL()
 } catch {
     print(error.localizedDescription)
-    exit(0)
+    exit(1)
 }
 
 
@@ -189,8 +189,6 @@ private class BuildGnutls: BaseBuild {
 
     override func arguments(platform: PlatformType, arch: ArchType) -> [String] {
         [
-            "--enable-fips140-mode",
-
             "--with-included-libtasn1",
             "--with-included-unistring",
             "--without-brotli",
