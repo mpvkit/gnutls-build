@@ -21,18 +21,24 @@ let package = Package(
         .binaryTarget(
             name: "gmp",
             url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.3/gmp.xcframework.zip",
-            checksum: "385fb67b6afce7920857ca0834f485dd31136bacb5b3d9cd95f2824ec905b786"
+            checksum: "defd5623e6786543588001b8f33026395960a561540738deb6df6996d39f957d"
         ),
 
         .binaryTarget(
             name: "nettle",
             url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.3/nettle.xcframework.zip",
-            checksum: "35c69940f39e4c5cedcde23de72c4988e4aed598ed42e618bf555a4b29d0133f"
+            checksum: "c3b8f506fa32bcb3f9bf65096b0556c4f5973f846ee964577d783edbe8e6969d"
         ),
         .binaryTarget(
             name: "hogweed",
             url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.3/hogweed.xcframework.zip",
-            checksum: "4cf420d2687f6aec4132eb60e5c946fccb3e192a3c314dd7c380ffeaeb1c72cf"
+            checksum: "47a34e7877f7ebd9175f5645059030e553276faa9a21b91e29fb7463b94e8daf"
+        ),
+
+        .binaryTarget(
+            name: "gnutls",
+            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.3/gnutls.xcframework.zip",
+            checksum: "5f5cf903a2d52157c29ad304260709f618ce086afea02061241982f8425a6fb0"
         ),
         //AUTO_GENERATE_TARGETS_END//
     ]
