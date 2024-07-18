@@ -105,7 +105,7 @@ private class BuildNettle: BaseBuild {
             Utility.shell("brew install autoconf")
         }
 
-        super.beforeBuild()
+        try super.beforeBuild()
     }
 
     override func flagsDependencelibrarys() -> [Library] {
@@ -158,7 +158,7 @@ private class BuildGnutls: BaseBuild {
             Utility.shell("brew install libtasn1")
         }
 
-        super.beforeBuild()
+        try super.beforeBuild()
     }
 
     override func flagsDependencelibrarys() -> [Library] {
