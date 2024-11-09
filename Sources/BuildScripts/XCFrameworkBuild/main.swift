@@ -18,7 +18,7 @@ enum Library: String, CaseIterable {
     var version: String {
         switch self {
         case .gnutls:
-            return "3.8.7"
+            return "3.8.8"
         case .nettle:
             return "nettle_3.10_release_20240616"
         case .gmp:
