@@ -20,25 +20,25 @@ let package = Package(
 
         .binaryTarget(
             name: "gmp",
-            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.8/gmp.xcframework.zip",
-            checksum: "f65513d17e087372f544e31b24d26de9e1783834abab0b7a9d1f2648b92638aa"
+            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.8-xcode26/gmp.xcframework.zip",
+            checksum: "5b162a9c94ac18fed854dfca2ce9265c828367e307c2c638352ab7ecaa8d4597"
         ),
 
         .binaryTarget(
             name: "nettle",
-            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.8/nettle.xcframework.zip",
-            checksum: "ea256b955bf6ef7e8bcfb26edc842b66ef3cd4670bd94100a1de2c1f38ee9d79"
+            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.8-xcode26/nettle.xcframework.zip",
+            checksum: "01521200be85b5e11eae23136a9fc359723fa0eeef08135ab79741aba45c8253"
         ),
         .binaryTarget(
             name: "hogweed",
-            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.8/hogweed.xcframework.zip",
-            checksum: "03901831e7b8afb4137ed65d0f1c0d3d22d5d678eb3726d500d89f41cf3a42ff"
+            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.8-xcode26/hogweed.xcframework.zip",
+            checksum: "4fbb5330ebca9c12e8bf08acb027f310b3ab33400ddbae04e249e2de47d52371"
         ),
 
         .binaryTarget(
             name: "gnutls",
-            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.8/gnutls.xcframework.zip",
-            checksum: "d42bc091f4fbe050e880b566f2f15cbc3042013cb78eba21d1a1ae140a6d9fb6"
+            url: "https://github.com/mpvkit/gnutls-build/releases/download/3.8.8-xcode26/gnutls.xcframework.zip",
+            checksum: "8a17bd6f1aac58a22a88fdbf645a73cb7cc3f6510996a2be488e5b6c9bb2148b"
         ),
         //AUTO_GENERATE_TARGETS_END//
     ]
