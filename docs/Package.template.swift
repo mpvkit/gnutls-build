@@ -6,7 +6,10 @@ let package = Package(
     name: "gnutls",
     platforms: [.macOS(.v11), .iOS(.v14), .tvOS(.v14)],
     products: [
-        .library(name: "gnutls", targets: ["_gnutls"]),
+        .library(
+            name: "gnutls",
+            targets: ["_gnutls"]
+        ),
     ],
     targets: [
         // Need a dummy target to embedded correctly.
