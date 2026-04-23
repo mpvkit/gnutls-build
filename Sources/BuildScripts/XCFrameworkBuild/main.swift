@@ -1,19 +1,19 @@
 import Foundation
+import BuildShared
 
 do {
-    let options = try ArgumentOptions.parse(CommandLine.arguments)
-    try Build.performCommand(options)
+    let options = try BuildRunner.performCommand()
 
-    try BuildGmp().buildALL()
-    try BuildNettle().buildALL()
-    try BuildGnutls().buildALL()
+    try BuildGmp(options: options).buildALL()
+    try BuildNettle(options: options).buildALL()
+    try BuildGnutls(options: options).buildALL()
 } catch {
     print(error.localizedDescription)
     exit(1)
 }
 
 
-enum Library: String, CaseIterable {
+enum Library: String, CaseIterable, BuildLibrary {
     case gnutls, gmp, nettle
     var version: String {
         switch self {
@@ -45,29 +45,29 @@ enum Library: String, CaseIterable {
             return  [
                 .target(
                     name: "gnutls",
-                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BaseBuild.options.releaseVersion)/gnutls.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BaseBuild.options.releaseVersion)/gnutls.xcframework.checksum.txt"
+                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/gnutls.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/gnutls.xcframework.checksum.txt"
                 ),
             ]
         case .nettle:
             return  [
                 .target(
                     name: "nettle",
-                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BaseBuild.options.releaseVersion)/nettle.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BaseBuild.options.releaseVersion)/nettle.xcframework.checksum.txt"
+                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/nettle.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/nettle.xcframework.checksum.txt"
                 ),
                 .target(
                     name: "hogweed",
-                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BaseBuild.options.releaseVersion)/hogweed.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BaseBuild.options.releaseVersion)/hogweed.xcframework.checksum.txt"
+                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/hogweed.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/hogweed.xcframework.checksum.txt"
                 ),
             ]
         case .gmp:
             return  [
                 .target(
                     name: "gmp",
-                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BaseBuild.options.releaseVersion)/gmp.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BaseBuild.options.releaseVersion)/gmp.xcframework.checksum.txt"
+                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/gmp.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/gmp.xcframework.checksum.txt"
                 ),
             ]
         }
@@ -75,8 +75,8 @@ enum Library: String, CaseIterable {
 }
 
 private class BuildGmp: BaseBuild {
-    init() {
-        super.init(library: .gmp)
+    init(options: ArgumentOptions) {
+        super.init(library: Library.gmp, options: options)
         // if Utility.shell("which makeinfo") == nil {
         //     Utility.shell("brew install texinfo")
         // }
@@ -96,8 +96,8 @@ private class BuildGmp: BaseBuild {
     }
 }
 private class BuildNettle: BaseBuild {
-    init() {
-        super.init(library: .nettle)
+    init(options: ArgumentOptions) {
+        super.init(library: Library.nettle, options: options)
     }
 
     override func beforeBuild() throws {
@@ -108,7 +108,7 @@ private class BuildNettle: BaseBuild {
         try super.beforeBuild()
     }
 
-    override func flagsDependencelibrarys() -> [Library] {
+    override func flagsDependencelibrarys() -> [any BuildLibrary] {
         [.gmp]
     }
 
@@ -134,8 +134,8 @@ private class BuildNettle: BaseBuild {
 }
 
 private class BuildGnutls: BaseBuild {
-    init() {
-        super.init(library: .gnutls)
+    init(options: ArgumentOptions) {
+        super.init(library: Library.gnutls, options: options)
     }
 
     override func beforeBuild() throws {
@@ -161,7 +161,7 @@ private class BuildGnutls: BaseBuild {
         try super.beforeBuild()
     }
 
-    override func flagsDependencelibrarys() -> [Library] {
+    override func flagsDependencelibrarys() -> [any BuildLibrary] {
         [.gmp, .nettle]
     }
 

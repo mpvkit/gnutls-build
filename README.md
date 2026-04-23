@@ -6,6 +6,8 @@
 
 build scripts for [gnutls](https://github.com/gnutls/gnutls)
 
+> This is a component of the [MPVKit](https://github.com/mpvkit/MPVKit) project.
+
 ## Installation
 
 ### Swift Package Manager
