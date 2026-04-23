@@ -15,6 +15,9 @@ do {
 
 enum Library: String, CaseIterable, BuildLibrary {
     case gnutls, gmp, nettle
+    private var releaseVersion: String {
+        BuildRunner.options?.releaseVersion ?? "0.0.0"
+    }
     var version: String {
         switch self {
         case .gnutls:
@@ -45,29 +48,29 @@ enum Library: String, CaseIterable, BuildLibrary {
             return  [
                 .target(
                     name: "gnutls",
-                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/gnutls.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/gnutls.xcframework.checksum.txt"
+                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(releaseVersion)/gnutls.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(releaseVersion)/gnutls.xcframework.checksum.txt"
                 ),
             ]
         case .nettle:
             return  [
                 .target(
                     name: "nettle",
-                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/nettle.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/nettle.xcframework.checksum.txt"
+                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(releaseVersion)/nettle.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(releaseVersion)/nettle.xcframework.checksum.txt"
                 ),
                 .target(
                     name: "hogweed",
-                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/hogweed.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/hogweed.xcframework.checksum.txt"
+                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(releaseVersion)/hogweed.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(releaseVersion)/hogweed.xcframework.checksum.txt"
                 ),
             ]
         case .gmp:
             return  [
                 .target(
                     name: "gmp",
-                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/gmp.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(BuildRunner.options!.releaseVersion)/gmp.xcframework.checksum.txt"
+                    url: "https://github.com/mpvkit/gnutls-build/releases/download/\(releaseVersion)/gmp.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/gnutls-build/releases/download/\(releaseVersion)/gmp.xcframework.checksum.txt"
                 ),
             ]
         }
